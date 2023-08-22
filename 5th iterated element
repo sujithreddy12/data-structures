@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+	printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int array[] = {10, 20, 30, 40, 50, 60, 70}; // Example array
+    int fifthElement;
+
+    // Check if there are at least 5 elements in the array
+    if (sizeof(array) / sizeof(array[0]) >= 5) {
+        fifthElement = array[4]; // Access the 5th element (index 4)
+        printf("The 5th iterated element: %d\n", fifthElement);
+    } else {
+        printf("The array does not have 5 elements.\n");
+    }
+}
