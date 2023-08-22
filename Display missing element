@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+void displayMissingElements(int arr[], int size, int lower, int upper) {
+    int hashTable[upper - lower + 1];
+    for (int i = 0; i < upper - lower + 1; i++) {
+        hashTable[i] = 0;
+    }
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] >= lower && arr[i] <= upper) {
+            hashTable[arr[i] - lower] = 1;
+        }
+    }
+    
+    printf("Missing elements within the range [%d, %d]: ", lower, upper);
+    for (int i = 0; i < upper - lower + 1; i++) {
+        if (hashTable[i] == 0) {
+            printf("%d ", lower + i);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+	printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int size;
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    int arr[size];
+    printf("Enter the array elements:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+    
+    int lower, upper;
+    printf("Enter the range [lower, upper]: ");
+    scanf("%d %d", &lower, &upper);
+
+    displayMissingElements(arr, size, lower, upper);
+}
