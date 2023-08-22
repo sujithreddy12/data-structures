@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void printOddEven(int arr[], int size) {
+    printf("Odd values: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) {
+            printf("%d ", arr[i]);
+        }
+    }
+    
+    printf("\nEven values: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 == 0) {
+            printf("%d ", arr[i]);
+        }
+    }
+    
+    printf("\n");
+}
+
+int main() {
+	printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int size;
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    int arr[size];
+    printf("Enter the array elements:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printOddEven(arr, size);
+}
