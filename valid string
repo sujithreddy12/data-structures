@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+bool is_valid_string(const char *str) {
+    while (*str != '\0') {
+        if (!isalpha(*str)) {
+            return false;
+        }
+        str++;
+    }
+    return true;
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    const char *input = "HelloWorld";
+
+    if (is_valid_string(input)) {
+        printf("The string is valid.\n");
+    } else {
+        printf("The string is not valid.\n");
+    }
+}
