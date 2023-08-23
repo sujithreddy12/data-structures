@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+void printFrequentCounts(const int arr[], int size) {
+    int freqCount[size];
+    int visited[size];
+
+    for (int i = 0; i < size; i++) {
+        freqCount[i] = 1;
+        visited[i] = 0;
+    }
+
+    for (int i = 0; i < size; i++) {
+        if (visited[i] == 1) {
+            continue;
+        }
+
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j]) {
+                freqCount[i]++;
+                visited[j] = 1;
+            }
+        }
+    }
+
+    printf("Frequently repeated numbers and their counts:\n");
+    for (int i = 0; i < size; i++) {
+        if (visited[i] == 0 && freqCount[i] > 1) {
+            printf("Number '%d' is repeated %d times.\n", arr[i], freqCount[i]);
+            visited[i] = 1;
+        }
+    }
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int size;
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    if (size <= 0) {
+        printf("Array size must be greater than 0.\n");
+        return 1;
+    }
+
+    int arr[size];
+    printf("Enter %d integers: ", size);
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printFrequentCounts(arr, size);
+
+    return 0;
+}
