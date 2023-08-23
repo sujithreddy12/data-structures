@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+
+
+void insert(struct ListNode **head, int val) {
+    struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+    newNode->val = val;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct ListNode *temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+
+struct ListNode* mergeLists(struct ListNode* l1, struct ListNode* l2) {
+    struct ListNode dummy;
+    struct ListNode* tail = &dummy;
+    
+    while (l1 && l2) {
+        if (l1->val < l2->val) {
+            tail->next = l1;
+            l1 = l1->next;
+        } else {
+            tail->next = l2;
+            l2 = l2->next;
+        }
+        tail = tail->next;
+    }
+    
+    tail->next = l1 ? l1 : l2;
+    
+    return dummy.next;
+}
+
+// Function to print the merged list
+void printList(struct ListNode* head) {
+    struct ListNode* current = head;
+    while (current != NULL) {
+        printf("%d -> ", current->val);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+		printf("name : sujith\nregno : 192211473");
+    struct ListNode* list1 = NULL;
+    insert(&list1, 2);
+    insert(&list1, 4);
+    insert(&list1, 6);
+    
+    struct ListNode* list2 = NULL;
+    insert(&list2, 1);
+    insert(&list2, 3);
+    insert(&list2, 5);
+    
+    printf("\nList 1: ");
+    printList(list1);
+    
+    printf("\nList 2: ");
+    printList(list2);
+    
+    struct ListNode* mergedList = mergeLists(list1, list2);
+    printf("\nMerged List: ");
+    printList(mergedList);
+}
