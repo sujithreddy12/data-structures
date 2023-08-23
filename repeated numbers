@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void printRepeatedIndices(const char arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j]) {
+                printf("Character '%c' is repeated at indices %d and %d\n", arr[i], i, j);
+            }
+        }
+    }
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int size;
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    if (size <= 0) {
+        printf("Array size must be greater than 0.\n");
+        return 1;
+    }
+
+    char arr[size];
+    printf("Enter %d characters: ", size);
+    for (int i = 0; i < size; i++) {
+        scanf(" %c", &arr[i]);
+    }
+
+    printf("Repeated characters and their indices:\n");
+    printRepeatedIndices(arr, size);
+
+    return 0;
+}
