@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+
+#define V 6 // Number of vertices
+
+// Function to find the minimum of two values
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+// Function to find the minimum edges required to visit all nodes
+int minEdgesRequired(int graph[V][V], int mask, int pos, int count, int dp[V][1 << V]) {
+    // If all nodes are visited, return the edge count to the starting node
+    if (mask == (1 << V) - 1) {
+        return graph[pos][0];
+    }
+
+    // If the result is already computed
+    if (dp[pos][mask] != -1) {
+        return dp[pos][mask];
+    }
+
+    int ans = INT_MAX;
+    for (int v = 0; v < V; v++) {
+        if (!(mask & (1 << v)) && graph[pos][v] != 0) {
+            ans = min(ans, graph[pos][v] + minEdgesRequired(graph, mask | (1 << v), v, count + 1, dp));
+        }
+    }
+
+    return dp[pos][mask] = ans;
+}
+
+int main() {
+	printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int graph[V][V] = {
+        {0, 29, 20, 21},
+        {29, 0, 15, 18},
+        {20, 15, 0, 25},
+        {21, 18, 25, 0}
+    };
+
+    // Initialize the DP array with -1
+    int dp[V][1 << V];
+    for (int i = 0; i < V; i++) {
+        for (int j = 0; j < (1 << V); j++) {
+            dp[i][j] = -1;
+        }
+    }
+
+    int startingNode = 0;
+    int mask = 1 << startingNode;
+
+    int minEdges = minEdgesRequired(graph, mask, startingNode, 1, dp);
+
+    printf("Minimum edges required to visit all nodes: %d\n", minEdges);
+
+    return 0;
+}
