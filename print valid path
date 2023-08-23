@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define V 5 // Number of vertices
+
+// Function to print a valid path
+void printPath(int path[], int pathLength) {
+    for (int i = 0; i < pathLength; i++) {
+        printf("%d", path[i]);
+        if (i != pathLength - 1) {
+            printf(" -> ");
+        }
+    }
+    printf("\n");
+}
+
+// Depth-First Search to print all paths
+void DFS(int graph[V][V], int u, int destination, bool visited[], int path[], int pathLength) {
+    visited[u] = true;
+    path[pathLength++] = u;
+
+    if (u == destination) {
+        printPath(path, pathLength);
+    } else {
+        for (int v = 0; v < V; v++) {
+            if (graph[u][v] == 1 && !visited[v]) {
+                DFS(graph, v, destination, visited, path, pathLength);
+            }
+        }
+    }
+
+    visited[u] = false; // Backtrack
+}
+
+// Function to print valid paths between source and destination
+void printValidPaths(int graph[V][V], int source, int destination) {
+    bool visited[V];
+    int path[V];
+    for (int i = 0; i < V; i++) {
+        visited[i] = false;
+        path[i] = -1;
+    }
+
+    int pathLength = 0;
+
+    printf("Valid paths from %d to %d:\n", source, destination);
+    DFS(graph, source, destination, visited, path, pathLength);
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int graph[V][V] = {
+        {0, 1, 1, 0, 0},
+        {0, 0, 1, 1, 0},
+        {0, 0, 0, 1, 0},
+        {0, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0}
+    };
+
+    int source = 0;
+    int destination = 4;
+
+    printValidPaths(graph, source, destination);
+
+    return 0;
+}
