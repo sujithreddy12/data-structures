@@ -1,0 +1,17 @@
+#include <stdio.h>
+int reverse(int x) {
+	printf("name : sujith\nregno : 192211473");
+    int reversed = 0;
+    while (x != 0) {
+        reversed = reversed * 10 + x % 10;
+        x /= 10;
+    }
+    return reversed;
+}
+int main() {
+    int num;
+    printf("\nEnter a 32-bit signed integer: ");
+    scanf("%d", &num);   
+    int reversed = reverse(num);  
+    printf("\nReversed integer: %d\n", reversed);
+}
