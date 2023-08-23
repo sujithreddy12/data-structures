@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Define the structure for a node in the linked list
+struct ListNode {
+    int data;
+    struct ListNode *next;
+};
+
+// Function to insert a new node at the end of the list
+void insert(struct ListNode **head, int data) {
+    struct ListNode *newNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct ListNode *temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+// Function to reverse a linked list
+struct ListNode* reverseList(struct ListNode* head) {
+    struct ListNode* prev = NULL;
+    struct ListNode* current = head;
+    struct ListNode* next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    return prev;
+}
+
+// Function to check if a linked list is palindrome
+bool isPalindrome(struct ListNode* head) {
+    if (head == NULL || head->next == NULL)
+        return true;
+
+    struct ListNode* slow = head;
+    struct ListNode* fast = head;
+
+    // Find the middle of the linked list
+    while (fast->next != NULL && fast->next->next != NULL) {
+        slow = slow->next;
+ fast = fast->next->next;
+    }
+
+    slow->next = reverseList(slow->next); // Reverse the second half
+
+    struct ListNode* firstHalf = head;
+    struct ListNode* secondHalf = slow->next;
+
+    // Compare the two halves
+    while (secondHalf != NULL) {
+        if (firstHalf->data != secondHalf->data)
+            return false;
+        firstHalf = firstHalf->next;
+        secondHalf = secondHalf->next;
+    }
+
+    return true;
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    struct ListNode* list = NULL;
+    insert(&list, 1);
+    insert(&list, 2);
+    insert(&list, 3);
+    insert(&list, 2);
+    insert(&list, 1);
+
+    printf("Linked List: ");
+printf("Linked List: ");
+    struct ListNode* current = list;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+
+    if (isPalindrome(list)) {
+        printf("The linked list is a palindrome.\n");
+    } else {
+        printf("The linked list is not a palindrome.\n");
+    }
+}
