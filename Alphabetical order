@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Comparison function for qsort
+int compare_strings(const void *a, const void *b) {
+    return strcmp(*(const char **)a, *(const char **)b);
+}
+
+int main() {
+	printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    const char *strings[] = {"apple", "banana", "orange", "grape", "kiwi"};
+    int num_strings = sizeof(strings) / sizeof(strings[0]);
+
+    // Sort the array of strings
+    qsort(strings, num_strings, sizeof(strings[0]), compare_strings);
+
+    printf("Sorted strings in alphabetical order:\n");
+    for (int i = 0; i < num_strings; i++) {
+        printf("%s\n", strings[i]);
+    }
+}
