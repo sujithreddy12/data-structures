@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void print_largest_element(int matrix[][3], int rows, int cols) {
+    int largest = matrix[0][0]; 
+    
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (matrix[i][j] > largest) {
+                largest = matrix[i][j]; 
+            }
+        }
+    }
+    
+    printf("Largest element in the matrix: %d\n", largest);
+}
+
+int main() {
+		printf("name : P.SUJITH\n");
+		printf("regno : 192211473\n");
+    int matrix[][3] = {{5, 9, 2}, {3, 7, 8}, {1, 6, 4}};
+    int rows = sizeof(matrix) / sizeof(matrix[0]);
+    int cols = sizeof(matrix[0]) / sizeof(matrix[0][0]);
+
+    print_largest_element(matrix, rows, cols);
+}
