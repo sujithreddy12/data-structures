@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure to represent a queue
+struct Queue {
+    int front, rear, size;
+    unsigned capacity;
+    int* array;
+};
+
+// Function to create a new queue
+struct Queue* createQueue(unsigned capacity) {
+    struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
+    queue->capacity = capacity;
+    queue->front = queue->size = 0;
+    queue->rear = capacity - 1;
+    queue->array = (int*)malloc(queue->capacity * sizeof(int));
+    return queue;
+}
+
+// Function to check if the queue is full
+int isQueueFull(struct Queue* queue) {
+    return queue->size == queue->capacity;
+}
+
+// Function to check if the queue is empty
+int isQueueEmpty(struct Queue* queue) {
+    return queue->size == 0;
+}
+
+// Function to enqueue an element into the queue
+void enqueue(struct Queue* queue, int item) {
+    if (isQueueFull(queue))
+        return;
+
+    queue->rear = (queue->rear + 1) % queue->capacity;
+    queue->array[queue->rear] = item;
+    queue->size++;
+}
+
+// Function to dequeue an element from the queue
+int dequeue(struct Queue* queue) {
+    if (isQueueEmpty(queue))
+        return -1;
+
+    int item = queue->array[queue->front];
+    queue->front = (queue->front + 1) % queue->capacity;
+    queue->size--;
+    return item;
+}
+
+// Structure to represent a stack using two queues
+struct Stack {
+    struct Queue* q1;
+    struct Queue* q2;
+};
+
+// Function to create a new stack
+struct Stack* createStack(unsigned capacity) {
+    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
+    stack->q1 = createQueue(capacity);
+    stack->q2 = createQueue(capacity);
+    return stack;
+}
+
+// Function to push an element onto the stack
+void push(struct Stack* stack, int item) {
+    enqueue(stack->q1, item);
+}
+
+// Function to pop an element from the stack
+int pop(struct Stack* stack) {
+    if (isQueueEmpty(stack->q1))
+        return -1;
+
+    while (stack->q1->size > 1) {
+        enqueue(stack->q2, dequeue(stack->q1));
+    }
+
+    int item = dequeue(stack->q1);
+
+    struct Queue* temp = stack->q1;
+    stack->q1 = stack->q2;
+    stack->q2 = temp;
+
+    return item;
+}
+
+int main() {
+		printf("name : sujith\n");
+	printf("regno : 192211473\n");
+    struct Stack* stack = createStack(5);
+
+    push(stack, 10);
+    push(stack, 20);
+    push(stack, 30);
+
+    printf("Popped element: %d\n", pop(stack));
+    printf("Popped element: %d\n", pop(stack));
+
+    push(stack, 40);
+
+    printf("Popped element: %d\n", pop(stack));
+}
