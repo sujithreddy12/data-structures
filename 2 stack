@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+// Structure to represent a stack
+struct Stack {
+    int arr[MAX_SIZE];
+    int top;
+};
+
+// Function to initialize a stack
+void initialize(struct Stack *stack) {
+    stack->top = -1;
+}
+
+// Function to check if the stack is empty
+int isEmpty(struct Stack *stack) {
+    return stack->top == -1;
+}
+
+// Function to check if the stack is full
+int isFull(struct Stack *stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+// Function to push an element onto the stack
+void push(struct Stack *stack, int value) {
+    if (isFull(stack)) {
+        printf("Stack is full. Cannot push element %d.\n", value);
+        return;
+    }
+
+    stack->arr[++stack->top] = value;
+}
+
+// Function to pop an element from the stack
+int pop(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is empty. Cannot pop element.\n");
+        return -1;
+    }
+
+    return stack->arr[stack->top--];
+}
+
+int main() {
+		printf("name : sujith\n");
+	printf("regno : 192211473\n");
+    struct Stack stack1, stack2;
+    initialize(&stack1);
+    initialize(&stack2);
+
+    push(&stack1, 10);
+    push(&stack1, 20);
+    push(&stack1, 30);
+
+    printf("Stack 1 Top Element: %d\n", stack1.arr[stack1.top]);
+
+    while (!isEmpty(&stack1)) {
+        push(&stack2, pop(&stack1));
+    }
+
+    printf("Stack 2 Bottom Element: %d\n", stack2.arr[stack2.top]);
+}
